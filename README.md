@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# BoomAI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+BoomAI is an AI-powered business intelligence solution designed to help businesses solve problems through data-driven insights. By leveraging Azure and OpenAI, BoomAI empowers businesses to make proactive decisions by prioritizing critical information and automating tasks. Our platform aims to enhance operational efficiencies, providing users with an intuitive interface for querying business-related questions and receiving insightful responses.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Query Interface:** Users can type questions related to their business and receive AI-generated responses.
+- **Data Integration:** Connects with third-party data sources such as Shopify, Stripe, and QuickBooks.
+- **Intuitive UI:** A user-friendly interface with interactive dashboards to display machine learning-generated insights.
+- **Personalization:** Customizes responses based on user profiles and preferences.
+- **Continuous Improvement:** Incorporates user feedback for ongoing model training and updates.
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend:** React, Tailwind CSS
+- **Backend:** Node.js, Express
+- **AI Integration:** OpenAI API
+- **Data Storage:** Vector databases
+- **Deployment:** Azure
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Install dependencies:
 
-### `npm test`
+bash
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+npm install
+Set up environment variables:
 
-### `npm run build`
+## Create a .env file in the root directory and add your OpenAI API key:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+env
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+REACT_APP_OPENAI_API_KEY=your_openai_api_key
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Start the development server:
 
-### `npm run eject`
+bash
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+npm start
+Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Navigate to the app:
+Open your browser and go to http://localhost:3000.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Ask a question:
+Type your business-related question in the query input field and submit.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## View responses:
+See AI-generated responses and insights displayed in the dashboard.
