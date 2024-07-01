@@ -1,0 +1,47 @@
+/* src/components/DataSourceSelection.css */
+
+.data-source-selection-container {
+  text-align: center;
+}
+
+.data-source-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.data-source-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+}
+
+.data-source-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.skip-button,
+.continue-button {
+  padding: 10px 20px;
+  margin: 10px;
+}
+
+.continue-button {
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}

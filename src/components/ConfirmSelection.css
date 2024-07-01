@@ -1,0 +1,23 @@
+/* src/components/ConfirmSelection.css */
+
+.confirm-selection-container {
+  text-align: center;
+}
+
+.data-type-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.data-type-list li {
+  margin: 10px 0;
+}
+
+.next-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
