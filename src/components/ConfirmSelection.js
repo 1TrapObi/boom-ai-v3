@@ -1,41 +1,25 @@
-// src/components/ConfirmSelection.js
-
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import "./ConfirmSelection.css";
+import { useParams, Link } from "react-router-dom";
 
 const ConfirmSelection = () => {
   const { source } = useParams();
-  const navigate = useNavigate();
-
-  const dataTypes = [
-    "Sales Data",
-    "Customer Data",
-    "Financial Data",
-    "Inventory Data",
-    "Marketing Data",
-    "Website Analytics",
-    "Operations",
-  ];
 
   return (
-    <div className="confirm-selection-container">
-      <h1>Connect {source}</h1>
-      <p>Select the types of data you want to import from {source}</p>
-      <ul className="data-type-list">
-        {dataTypes.map((type) => (
-          <li key={type}>
-            <input type="checkbox" id={type} name={type} />
-            <label htmlFor={type}>{type}</label>
-          </li>
-        ))}
-      </ul>
-      <button
-        className="next-button"
-        onClick={() => navigate("/role-selection")}
-      >
-        Next
-      </button>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-4 text-white">Confirmation</h1>
+        <p className="text-xl mb-8 text-gray-300">
+          {source === "skipped"
+            ? "You've selected a data source."
+            : `You've selected ${source} as your data source.`}
+        </p>
+        <Link
+          to="/ask-boom-ai"
+          className="bg-gradient-to-r from-orange-400 to-pink-500 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 inline-block"
+        >
+          Start Using BoomAI
+        </Link>
+      </div>
     </div>
   );
 };

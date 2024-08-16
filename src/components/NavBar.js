@@ -1,48 +1,54 @@
-// components/NavBar.js
 import React from "react";
-import {
-  Home,
-  BarChart2,
-  History,
-  Database,
-  Link,
-  Bell,
-  HelpCircle,
-} from "lucide-react";
 
 const navItems = [
-  { icon: Home, label: "Home" },
-  { icon: BarChart2, label: "Dashboard" },
-  { icon: History, label: "History" },
-  { icon: Database, label: "Data room Reports" },
-  { icon: Link, label: "Connections" },
-  { icon: Bell, label: "Notifications" },
-  { icon: HelpCircle, label: "Ask Boom AI" },
+  {
+    icon: "🏠",
+    label: "Home",
+    description: "Central hub for all your activities.",
+  },
+  {
+    icon: "🤖",
+    label: "Ask Boom AI",
+    description: "Find answers and insights using AI-driven search.",
+  },
+  {
+    icon: "📊",
+    label: "Reports",
+    description: "Access and generate detailed data reports.",
+  },
+  {
+    icon: "🕒",
+    label: "History",
+    description: "View your recent activity and data interactions.",
+  },
+  {
+    icon: "🔗",
+    label: "Data Connections",
+    description: "Manage your integrated data sources.",
+  },
 ];
 
 const NavBar = () => (
-  <div className="w-72 bg-gradient-to-b from-gray-800 to-gray-900 p-6 flex flex-col shadow-lg">
+  <div className="w-72 bg-gray-900 p-6 flex flex-col shadow-lg h-screen">
     <div className="flex items-center mb-12">
-      <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full mr-4 shadow-lg"></div>
-      <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-pink-500">
-        Boom AI
-      </h1>
+      <img src="/boom-logo.png" alt="Boom AI Logo" className="w-12 h-12 mr-4" />
+      <h1 className="text-2xl font-bold text-boom-orange">Boom AI</h1>
     </div>
     <nav className="flex-grow">
-      {navItems.map(({ icon: Icon, label }) => (
-        <a
-          key={label}
-          href="#"
-          className="flex items-center py-3 px-4 hover:bg-gray-700 rounded-lg mb-2 transition-all duration-200 ease-in-out transform hover:scale-105"
-        >
-          <Icon className="mr-4" size={20} />
-          {label}
-        </a>
+      {navItems.map(({ icon, label, description }) => (
+        <div key={label} className="relative group mb-2">
+          <button className="flex items-center w-full py-3 px-4 rounded-lg text-gray-300 hover:bg-nav-hover transition-all duration-200 ease-in-out group-hover:text-boom-orange group-hover:translate-x-2">
+            <span className="mr-4 text-xl" role="img" aria-label={label}>
+              {icon}
+            </span>
+            {label}
+          </button>
+          <div className="absolute left-full ml-2 top-0 w-64 p-2 bg-nav-hover text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out pointer-events-none">
+            {description}
+          </div>
+        </div>
       ))}
     </nav>
-    <button className="w-full bg-gradient-to-r from-orange-400 to-pink-500 text-white py-3 px-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 ease-in-out transform hover:scale-105">
-      Upgrade
-    </button>
   </div>
 );
 

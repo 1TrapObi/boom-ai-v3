@@ -1,54 +1,49 @@
-// src/components/DataSourceSelection.js
-
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./DataSourceSelection.css";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const DataSourceSelection = () => {
-  const [selectedDataSource, setSelectedDataSource] = useState(null);
-  const navigate = useNavigate();
-
   const dataSources = [
-    { name: "Shopify", icon: "/icons/shopify-icon.png" },
-    { name: "Stripe", icon: "/icons/stripe-icon.png" },
-    { name: "QuickBooks", icon: "/icons/quickbooks-icon.png" },
-    { name: "HubSpot", icon: "/icons/hubspot-icon.png" },
-    { name: "Notion", icon: "/icons/notion-icon.png" },
-    { name: "MailChimp", icon: "/icons/mailchimp-icon.png" },
+    { name: "Shopify", icon: "🛍️" },
+    { name: "Stripe", icon: "💳" },
+    { name: "QuickBooks", icon: "📚" },
+    { name: "HubSpot", icon: "🔗" },
+    { name: "Notion", icon: "📝" },
+    { name: "MailChimp", icon: "📧" },
   ];
 
-  const handleDataSourceClick = (source) => {
-    setSelectedDataSource(source);
-    console.log("Selected Data Source:", source); // Temporary usage
-    navigate(`/confirm-selection/${source.name}`);
-  };
-
   return (
-    <div className="data-source-selection-container">
-      <h1>What apps do you use?</h1>
-      <p>Add your data source to enhance your Boom experience</p>
-      <div className="data-source-grid">
-        {dataSources.map((source) => (
-          <div
-            key={source.name}
-            className="data-source-card"
-            onClick={() => handleDataSourceClick(source)}
+    <div className="min-h-screen bg-gray-900 p-6">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold mb-4 text-center text-white">
+          What apps do you use?
+        </h1>
+        <p className="text-xl mb-8 text-center text-gray-300">
+          Add your data source to enhance your Boom experience
+        </p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+          {dataSources.map((source) => (
+            <button
+              key={source.name}
+              className="bg-gray-800 p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            >
+              <div className="text-4xl mb-2">{source.icon}</div>
+              <div className="text-white">{source.name}</div>
+            </button>
+          ))}
+        </div>
+
+        <div className="flex justify-between items-center">
+          <button className="text-gray-400 hover:text-white transition-colors duration-200">
+            Skip for now
+          </button>
+          <Link
+            to="/confirm-selection/skipped"
+            className="bg-gradient-to-r from-orange-400 to-pink-500 text-white py-2 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
           >
-            <img src={source.icon} alt={source.name} />
-            <p>{source.name}</p>
-          </div>
-        ))}
-      </div>
-      <div className="action-buttons">
-        <button className="skip-button" onClick={() => navigate("/dashboard")}>
-          Skip for now
-        </button>
-        <button
-          className="continue-button"
-          onClick={() => navigate("/confirm-selection")}
-        >
-          Continue
-        </button>
+            Continue
+          </Link>
+        </div>
       </div>
     </div>
   );
