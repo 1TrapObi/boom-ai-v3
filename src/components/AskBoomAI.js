@@ -1,128 +1,193 @@
 import React, { useState } from "react";
-
-const navItems = [
-  { icon: "🏠", label: "Home" },
-  { icon: "🤖", label: "Ask Boom AI" },
-  { icon: "📊", label: "Reports" },
-  { icon: "🕒", label: "History" },
-  { icon: "🔗", label: "Data Connections" },
-];
-
-const suggestedPrompts = [
-  "How are we doing this month?",
-  "How can I increase my sales?",
-  "What is my financial story?",
-];
+import { Link } from "react-router-dom";
 
 const AskBoomAI = () => {
-  const [query, setQuery] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [prompt, setPrompt] = useState("");
+  const [insights, setInsights] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestedPrompts, setShowSuggestedPrompts] = useState(false);
 
-  const handleSubmit = (e) => {
+  const suggestedPrompts = [
+    "How are we doing this month?",
+    "How can I increase my sales?",
+    "What is my financial story?",
+  ];
+
+  const handlePromptSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted query:", query);
-    setQuery("");
+    if (!prompt.trim()) return;
+
+    setIsLoading(true);
+    try {
+      // Simulating API call
+      const response = await new Promise((resolve) =>
+        setTimeout(
+          () =>
+            resolve({
+              data: {
+                insights: "Here are some insights based on your prompt...",
+              },
+            }),
+          2000
+        )
+      );
+      setInsights(response.data.insights);
+    } catch (error) {
+      console.error("Failed to get insights:", error);
+      setInsights("Failed to generate insights. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleSuggestedPrompt = (prompt) => {
-    setQuery(prompt);
-    setShowModal(false);
+  const handleSuggestedPromptClick = (suggestedPrompt) => {
+    setPrompt(suggestedPrompt);
+    setShowSuggestedPrompts(false);
   };
 
   return (
-    <div className="flex h-screen bg-[#1a1e2e] text-white">
-      {/* Sidebar */}
-      <div className="w-64 bg-[#141824] p-6 flex flex-col">
+    <div className="flex h-screen bg-gray-900 text-white">
+      {/* Navbar */}
+      <nav className="w-64 bg-gray-800 p-5">
         <div className="flex items-center mb-12">
           <img
             src="/boom-logo.png"
             alt="Boom AI Logo"
             className="w-8 h-8 mr-3"
           />
-          <h1 className="text-xl font-bold text-boom-orange">Boom AI</h1>
+          <h1 className="text-3xl font-extrabold text-orange-500">Boom AI</h1>
         </div>
-        <nav className="flex-grow">
-          {navItems.map(({ icon, label }) => (
-            <button
-              key={label}
-              className="flex items-center w-full py-3 px-4 text-gray-400 hover:bg-[#1f2537] rounded-lg mb-2 transition-colors duration-200"
+        <ul className="space-y-2">
+          <li>
+            <Link
+              to="/"
+              className="flex items-center py-2 px-4 hover:bg-gray-700 rounded"
             >
-              <span className="mr-3 text-xl">{icon}</span>
-              {label}
-            </button>
-          ))}
-        </nav>
-      </div>
+              <span className="mr-2">🏠</span>Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/ask-boom-ai"
+              className="flex items-center py-2 px-4 bg-gray-700 rounded"
+            >
+              <span className="mr-2">🤖</span>Ask Boom AI
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/reports"
+              className="flex items-center py-2 px-4 hover:bg-gray-700 rounded"
+            >
+              <span className="mr-2">📊</span>Reports
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/history"
+              className="flex items-center py-2 px-4 hover:bg-gray-700 rounded"
+            >
+              <span className="mr-2">🕒</span>History
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/data-connections"
+              className="flex items-center py-2 px-4 hover:bg-gray-700 rounded"
+            >
+              <span className="mr-2">🔗</span>Data Connections
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
       {/* Main content */}
-      <div className="flex-1 p-10 flex flex-col">
-        <header className="flex justify-end mb-12">
-          <div className="flex space-x-4">
-            {["Settings", "Suggested Prompts", "+ New Query"].map(
-              (label, index) => (
-                <button
-                  key={index}
-                  onClick={() =>
-                    label === "Suggested Prompts" && setShowModal(true)
-                  }
-                  className="bg-boom-orange text-white py-2 px-4 rounded-lg hover:bg-opacity-90 transition-all duration-200"
-                >
-                  {label}
-                </button>
-              )
-            )}
+      <main className="flex-1 p-10 relative">
+        <div className="max-w-4xl mx-auto">
+          {/* Top buttons */}
+          <div className="flex justify-end mb-8 space-x-4">
+            <button className="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 transition-colors duration-200">
+              Settings
+            </button>
+            <button
+              className="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 transition-colors duration-200"
+              onClick={() => setShowSuggestedPrompts(true)}
+            >
+              Suggested Prompts
+            </button>
+            <button className="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 transition-colors duration-200">
+              + New Query
+            </button>
           </div>
-        </header>
 
-        <div className="flex-grow flex items-center justify-center">
-          <div className="w-full max-w-3xl bg-[#1f2537] p-8 rounded-2xl shadow-xl">
-            <h3 className="text-2xl mb-8 font-semibold text-boom-orange text-center">
+          {/* Prompt input */}
+          <div className="bg-gray-800 rounded-lg p-6 mb-8">
+            <h2 className="text-2xl font-bold mb-4 text-orange-500">
               What questions do you have about your business?
-            </h3>
-            <form onSubmit={handleSubmit} className="relative">
+            </h2>
+            <form
+              onSubmit={handlePromptSubmit}
+              className="flex items-center bg-gray-700 rounded-full overflow-hidden"
+            >
               <input
                 type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Ask a Question..."
-                className="w-full p-4 pr-24 rounded-lg bg-[#2a3144] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-boom-orange"
+                className="flex-grow px-6 py-3 bg-transparent text-white focus:outline-none"
               />
               <button
                 type="submit"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-boom-orange text-white py-2 px-4 rounded-lg hover:bg-opacity-90 transition-all duration-200"
+                disabled={isLoading}
+                className="bg-orange-500 text-white px-6 py-3 hover:bg-orange-600 transition-colors duration-200 disabled:opacity-50"
               >
-                Boom
+                {isLoading ? "Processing..." : "Boom"}
               </button>
             </form>
           </div>
-        </div>
-      </div>
 
-      {/* Modal for Suggested Prompts */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-[#1f2537] p-6 rounded-lg w-full max-w-md">
-            <h4 className="text-xl font-semibold mb-4 text-boom-orange">
-              Suggested Prompts
-            </h4>
-            {suggestedPrompts.map((prompt, index) => (
-              <button
-                key={index}
-                onClick={() => handleSuggestedPrompt(prompt)}
-                className="block w-full text-left p-3 hover:bg-[#2a3144] rounded transition-colors duration-200 mb-2 text-white"
-              >
-                {prompt}
-              </button>
-            ))}
-            <button
-              onClick={() => setShowModal(false)}
-              className="mt-4 bg-boom-orange text-white py-2 px-4 rounded-lg w-full hover:bg-opacity-90 transition-all duration-200"
-            >
-              Close
-            </button>
-          </div>
+          {/* Insights display */}
+          {insights && (
+            <div className="bg-gray-800 rounded-lg p-6">
+              <h3 className="text-xl font-bold mb-4 text-orange-500">
+                Insights
+              </h3>
+              <p className="text-gray-300">{insights}</p>
+            </div>
+          )}
         </div>
-      )}
+
+        {/* Suggested Prompts Modal */}
+        {showSuggestedPrompts && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-gray-800 p-6 rounded-lg w-96">
+              <h3 className="text-xl font-bold mb-4 text-orange-500">
+                Suggested Prompts
+              </h3>
+              <ul className="space-y-2">
+                {suggestedPrompts.map((suggestedPrompt, index) => (
+                  <li key={index}>
+                    <button
+                      className="w-full text-left p-2 hover:bg-gray-700 rounded transition-colors duration-200"
+                      onClick={() =>
+                        handleSuggestedPromptClick(suggestedPrompt)
+                      }
+                    >
+                      {suggestedPrompt}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <button
+                className="mt-4 bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-200"
+                onClick={() => setShowSuggestedPrompts(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 };
