@@ -8,6 +8,8 @@ dotenv.config(); // Load environment variables from .env file
 require("./passport-config");
 
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const integrationRoutes = require("./routes/integration");
 
 const app = express();
 
@@ -28,8 +30,20 @@ mongoose
 app.use(express.json());
 app.use(passport.initialize());
 
-app.use("/auth", authRoutes);
+// Middleware to check if user is authenticated
+const isAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.status(401).json({ message: "Unauthorized" });
+};
 
+// Routes
+app.use("/auth", authRoutes);
+app.use("/user", isAuthenticated, userRoutes);
+app.use("/integration", isAuthenticated, integrationRoutes);
+
+// OAuth routes
 app.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -63,6 +77,13 @@ app.get(
   }
 );
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
