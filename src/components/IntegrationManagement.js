@@ -4,7 +4,7 @@ import {
   getIntegrationStatus,
   connectIntegration,
   disconnectIntegration,
-} from "../services/api";
+} from "../apiService"; // Updated import path
 
 const IntegrationManagement = () => {
   const [integrations, setIntegrations] = useState({});

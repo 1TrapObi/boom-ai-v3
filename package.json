@@ -15,10 +15,13 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "intuit-oauth": "^4.1.2",
     "lucide-react": "^0.399.0",
-    "mongoose": "^8.4.3",
+    "mongoose": "^8.5.4",
+    "mongoose-encryption": "^2.1.2",
     "node-quickbooks": "^2.0.45",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
@@ -34,7 +37,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node server/server.js",
+    "dev": "concurrently \"npm run start\" \"npm run server\""
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +61,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
+    "concurrently": "^6.5.1",
     "postcss": "^8.4.38",
     "postcss-cli": "^11.0.0",
     "tailwindcss": "^3.4.4"

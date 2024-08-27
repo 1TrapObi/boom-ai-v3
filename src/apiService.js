@@ -1,7 +1,7 @@
 // src/apiService.js
 import axios from "axios";
 
-const API_KEY = "sk-proj-1TuGD4isHRuf3eu73bVsT3BlbkFJGcBuJxFPQ2IHh4w0vXoe";
+const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 const openai = axios.create({
@@ -48,6 +48,18 @@ export const connectIntegration = (integration, credentials) =>
 export const disconnectIntegration = (integration) =>
   api.post("/integration/disconnect", { integration });
 export const fetchIntegratedData = () => api.get("/integration/data");
+
+// Test integration functions
+export const sendTestIntegrationData = (userId, integrationData) =>
+  api.post("/integration/test-integration", { userId, integrationData });
+
+export const fetchTestIntegrationData = (userId) =>
+  api.get(`/integration/test-integration/${userId}`);
+
+// New Shopify integration functions
+export const integrateShopify = () =>
+  api.post("/api/shopify/integrate-shopify");
+export const fetchShopifyData = () => api.get("/api/shopify/fetch-data");
 
 // Interceptor for handling authentication errors
 api.interceptors.response.use(

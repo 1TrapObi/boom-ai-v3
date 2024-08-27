@@ -1,4 +1,10 @@
 // models/User.js
+console.log(
+  "In User model - ENCRYPTION_KEY loaded:",
+  !!process.env.ENCRYPTION_KEY
+);
+console.log("In User model - SIGNING_KEY loaded:", !!process.env.SIGNING_KEY);
+
 const mongoose = require("mongoose");
 const encrypt = require("mongoose-encryption");
 
@@ -53,8 +59,11 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Encryption setup
-const encKey = process.env.MONGOOSE_ENCRYPTION_KEY;
-const sigKey = process.env.MONGOOSE_SIGNING_KEY;
+const encKey = process.env.ENCRYPTION_KEY;
+const sigKey = process.env.SIGNING_KEY;
+
+console.log("encKey exists:", !!encKey);
+console.log("sigKey exists:", !!sigKey);
 
 UserSchema.plugin(encrypt, {
   encryptionKey: encKey,

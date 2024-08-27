@@ -1,6 +1,6 @@
 // src/components/IntegratedDataDisplay.js
 import React, { useState, useEffect } from "react";
-import { fetchIntegratedData } from "../services/api";
+import { fetchIntegratedData } from "../apiService"; // Updated import path
 
 const IntegratedDataDisplay = () => {
   const [data, setData] = useState(null);

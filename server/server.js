@@ -1,3 +1,9 @@
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+require("dotenv").config();
+console.log("ENCRYPTION_KEY loaded:", !!process.env.ENCRYPTION_KEY);
+console.log("SIGNING_KEY loaded:", !!process.env.SIGNING_KEY);
+
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -10,6 +16,7 @@ require("./passport-config");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const integrationRoutes = require("./routes/integration");
+const shopifyIntegrationRoutes = require("./routes/shopifyIntegration"); // New import
 
 const app = express();
 
@@ -42,6 +49,7 @@ const isAuthenticated = (req, res, next) => {
 app.use("/auth", authRoutes);
 app.use("/user", isAuthenticated, userRoutes);
 app.use("/integration", isAuthenticated, integrationRoutes);
+app.use("/api/shopify", isAuthenticated, shopifyIntegrationRoutes); // New route
 
 // OAuth routes
 app.get(
