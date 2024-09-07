@@ -1,0 +1,6 @@
+flask
+openai
+pandas
+python-docx
+pdfplumber
+python-dotenv
