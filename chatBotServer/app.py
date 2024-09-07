@@ -6,10 +6,11 @@ import pdfplumber
 from dotenv import load_dotenv
 import os
 
-app = Flask(__name__)
+openai.api_key = os.getenv('OPENAI_API_KEY')
+
+app = Flask(_name_)
 load_dotenv()
 
-openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Function to extract text from PDF
 def extract_text_from_pdf(pdf_path):
@@ -88,14 +89,14 @@ def ask_question():
             model="gpt-4",
             messages=messages
         )
-        output_text = response.choices[0].message['content']
+        output_text = response.choices[0].message.content
         return jsonify({'status': 'success', 'answer': output_text})
     except Exception as e:
         return jsonify({'status': 'fail', 'message': str(e)}), 500
 
 @app.route('/')
 def home():
-    return "Backend is successfully deployed and running!"
+    return "Chatbot Server is successfully deployed and running!"
 
 if _name_ == '_main_':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
