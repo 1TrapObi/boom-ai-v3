@@ -15,14 +15,12 @@ require("./passport-config");
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
-const integrationRoutes = require("./routes/integration");
+const integrationRoutes = require("./routes/integrations");
 const shopifyIntegrationRoutes = require("./routes/shopifyIntegration"); // New import
 
 const app = express();
 
-const mongoUri =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://obi:AllMoneyIn5!@boomcustomer.zj5blyf.mongodb.net/";
+const mongoUri = process.env.MONGODB_URI;
 
 mongoose
   .connect(mongoUri, {
@@ -48,7 +46,7 @@ const isAuthenticated = (req, res, next) => {
 // Routes
 app.use("/auth", authRoutes);
 app.use("/user", isAuthenticated, userRoutes);
-app.use("/integration", isAuthenticated, integrationRoutes);
+app.use("/integrations", isAuthenticated, integrationRoutes);
 app.use("/api/shopify", isAuthenticated, shopifyIntegrationRoutes); // New route
 
 // OAuth routes
@@ -94,4 +92,8 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+});
+
+app.get('/', (req, res) => {
+  res.send('Backend is successfully deployed and running!');
 });
