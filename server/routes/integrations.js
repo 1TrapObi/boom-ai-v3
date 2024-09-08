@@ -5,7 +5,7 @@ const {
   getIntegrationStatus,
   connectIntegration,
   disconnectIntegration,
-} = require("../integrations/dataIntegration");
+} = require("../integrations/dataIntegrations");
 const User = require("../models/User"); // Make sure to adjust this path to your User model
 
 router.get("/status", (req, res) => {
