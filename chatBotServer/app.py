@@ -6,10 +6,11 @@ import pdfplumber
 from dotenv import load_dotenv
 import os
 
-app = Flask(__name__)
+openai.api_key = os.getenv('OPENAI_API_KEY')
+
+app = Flask(_name_)
 load_dotenv()
 
-openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Function to extract text from PDF
 def extract_text_from_pdf(pdf_path):
@@ -49,7 +50,7 @@ def trim_text_to_token_limit(text, max_tokens=9000):
     return trimmed_text
 
 # Load the data once when the server starts
-file_path = "D:\\Private\\BoomAI\\data_50.csv"  # Hardcoded file path
+file_path = "./data_50.csv"  # Hardcoded file path
 combined_data = ""
 data = None
 
@@ -88,10 +89,14 @@ def ask_question():
             model="gpt-4",
             messages=messages
         )
-        output_text = response.choices[0].message['content']
+        output_text = response.choices[0].message.content
         return jsonify({'status': 'success', 'answer': output_text})
     except Exception as e:
         return jsonify({'status': 'fail', 'message': str(e)}), 500
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/')
+def home():
+    return "Chatbot Server is successfully deployed and running!"
+
+if _name_ == '_main_':
+    app.run(host='0.0.0.0', port=5001, debug=True)
